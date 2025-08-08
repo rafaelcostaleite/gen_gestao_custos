@@ -1,0 +1,23 @@
+projeto_gestao_custos/
+│
+├── requirements.txt
+├── .gitignore
+├── config.yaml
+│
+├── src/
+│   ├── __init__.py
+│   ├── main.py
+│   │
+│   └── utils/
+│       ├── __init__.py
+│       ├── excel_reader.py
+│       ├── dataframe_creator.py
+│       ├── data_processor.py
+│       ├── data_analyzer.py
+│       ├── excel_exporter.py
+│       ├── file_validator.py
+│       ├── logger_config.py
+│       ├── config_manager.py
+│       ├── data_model.py
+│       └── analysis_model.py
+└── logs/

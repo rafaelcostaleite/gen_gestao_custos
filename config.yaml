@@ -1,0 +1,117 @@
+# config.yaml
+
+# Configuração geral do projeto
+project:
+  name: "Sistema de Gestão de Custos"
+  version: "1.0.0"
+  author: "Sistema de Análise Contábil"
+
+# Diretórios
+directories:
+  base_dir: "C:/temp/custos"
+  logs_dir: "logs"
+  temp_dir: "temp"
+
+# Configurações de logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+  file_encoding: "utf-8"
+  console_output: true
+  file_output: true
+
+# Configuração CTBR400
+ctbr400:
+  input_file: "ctbr400.xlsx"
+  output_file: "revisao-ctbr400.xlsx"
+  sheet_name: "3-Lançamentos Contábeis"
+  header_row: 1
+  output_sheet: "Lançamentos"
+  numeric_columns: ["J", "K"]  # DEBITO, CREDITO após adicionar colunas
+  
+  desired_columns:
+    - "CONTA"
+    - "DATA"
+    - "HISTORICO"
+    - "C/PARTIDA"
+    - "FILIAL DE ORIGEM"
+    - "C CUSTO"
+    - "DEBITO"
+    - "CREDITO"
+  
+  # Mapeamento de contas para natureza
+  account_to_nature_mapping:
+    42030101: "Marketing (propaganda, publicidade, mala direta, etc)"
+    42030106: "Site"
+    42050102: "Locação de móveis, máquinas e equipamentos"
+    42060102: "Telefone"
+    42060104: "Telefone"
+    42070103: "Consultoria, assessoria e auditoria"
+    42070104: "Serviços diversos"
+    42070107: "Serviços diversos"
+    42990407: "Gastos com manutenção (imóveis, maq e equipamentos)"
+    42990410: "Outras despesas gerais"
+    42990414: "Gastos com manutenção de sistemas"
+    42990499: "Outras 99"
+
+# Configuração Orçamento
+budget:
+  input_file: "Orçamento Despesas 2025 - 20303710 TI.xlsx"
+  output_file: "revisão-Orçamento Despesas 2025 - 20303710 TI.xlsx"
+  sheet_name: "Custos"
+  header_row: 0
+  output_sheet: "Custos"
+  numeric_columns: ["I"]  # Valor NF após adicionar colunas
+  
+  desired_columns:
+    - "Natureza"
+    - "Justificativa"
+    - "Mês"
+    - "Fornecedor NF"
+    - "NF"
+    - "Dt.Emissão"
+    - "Valor NF"
+    - "Dt.Vencto"
+  
+  # Mapeamento de natureza para conta
+  nature_to_account_mapping:
+    "Marketing (propaganda, publicidade, mala direta, etc)": 42030101
+    "Site": 42030106
+    "Locação de móveis, máquinas e equipamentos": 42050102
+    "Telefone": 42060102
+    "Consultoria, assessoria e auditoria": 42070103
+    "Serviços diversos": 42070104
+    "Gastos com manutenção (imóveis, maq e equipamentos)": 42990407
+    "Outras despesas gerais": 42990410
+    "Gastos com manutenção de sistemas": 42990414
+    "Outras 99": 42990499
+
+# Configurações de processamento
+processing:
+  # Padrões regex para extração de NF
+  nf_patterns:
+    - "NF:\\s*(\\d+)"
+    - "PROV\\.FT:\\s*(\\d+)"
+  
+  # Formatos de data aceitos
+  date_formats:
+    - "%Y-%m-%d %H:%M:%S"
+    - "%Y-%m-%d"
+    - "%d/%m/%Y"
+    - "%m/%d/%Y"
+  
+  # Configurações de formatação Excel
+  excel_formatting:
+    header_font_color: "FFFFFF"
+    header_background_color: "366092"
+    number_format: "#,##0.00"
+    min_column_width: 12
+    max_column_width: 50
+
+# Mensagens do sistema
+messages:
+  success_complete: "🎉 TODOS OS PROCESSAMENTOS CONCLUÍDOS COM SUCESSO!"
+  warning_partial: "⚠️ Alguns processamentos falharam. Verifique os logs acima."
+  error_directory: "Diretório não encontrado ou inacessível"
+  error_file: "Arquivo não encontrado"
+  error_columns: "Colunas obrigatórias não encontradas"
