@@ -47,7 +47,47 @@ def comparar_registros(ctbr400_df, orcamento_df):
                 
                 ctbr400_df.loc[idx_ctbr, 'Status'] = 'OK - Sem NF'
                 break
-    
+            elif (row_ctbr['Período'] == row_orc['Período'] and
+                  row_ctbr['CONTA'] == row_orc['Conta'] and
+                  row_ctbr['DEBITO'] < row_orc['Valor NF']and
+                  row_ctbr['NF'] in str(row_orc['NF']) and
+                  str(row_ctbr['NF']).strip() != '' and
+                  str(row_orc['NF']).strip() != ''):
+                
+                ctbr400_df.loc[idx_ctbr, 'Status'] = 'OK - NF em grupo'
+                break
+            elif (row_ctbr['CONTA'] == row_orc['Conta'] and
+                row_ctbr['NF'] == row_orc['NF'] and
+                row_ctbr['DEBITO'] == row_orc['Valor NF'] and
+                str(row_ctbr['NF']).strip() != '' and
+                str(row_orc['NF']).strip() != ''):
+                
+                ctbr400_df.loc[idx_ctbr, 'Status'] = 'Período errado'
+                break
+            elif (row_ctbr['Período'] == row_orc['Período'] and
+                row_ctbr['NF'] == row_orc['NF'] and
+                row_ctbr['DEBITO'] == row_orc['Valor NF'] and
+                str(row_ctbr['NF']).strip() != '' and
+                str(row_orc['NF']).strip() != ''):
+                
+                ctbr400_df.loc[idx_ctbr, 'Status'] = 'Conta errada'
+                break
+            elif (row_ctbr['Período'] == row_orc['Período'] and
+                row_ctbr['CONTA'] == row_orc['Conta'] and
+                row_ctbr['DEBITO'] == row_orc['Valor NF'] and
+                str(row_ctbr['NF']).strip() != '' and
+                str(row_orc['NF']).strip() != ''):
+                
+                ctbr400_df.loc[idx_ctbr, 'Status'] = 'Nota errada'
+                break
+            elif (row_ctbr['Período'] == row_orc['Período'] and
+                row_ctbr['CONTA'] == row_orc['Conta'] and
+                row_ctbr['NF'] == row_orc['NF'] and
+                str(row_ctbr['NF']).strip() != '' and
+                str(row_orc['NF']).strip() != ''):
+                
+                ctbr400_df.loc[idx_ctbr, 'Status'] = 'Valor errado'
+                break
     return ctbr400_df
 
 
